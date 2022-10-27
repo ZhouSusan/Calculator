@@ -35,23 +35,27 @@ let nextValue = 0;
 const calculate = (previous, next, operator) => operator(previous, next);
 
 // This function will mutate previousValue and nextValue by applying the defined functions above it.
-const performCalculation = () => {
-  switch (testSwitch){
+const evaluate = (operation) => {
+  //todo: add a variable to stage the converted prev and next vals;
+  const convertedPrev = stringToNum(previousValue);
+  const convertedNext = stringToNum(nextValue);
+
+  switch (operation){
     case "add":
       // do stuff
-      previousValue = calculate(previousValue, nextValue, additon);
+      previousValue = calculate(convertedPrev, convertedNext, additon) + "";
       break;
     case "minus":
       // do stuff;
-      previousValue = calculate(previousValue, nextValue, subtract);
+      previousValue = calculate(convertedPrev, convertedNext, subtract) + "";
       break;
     case "multiply":
       // do stuff
-      previousValue = calculate(previousValue, nextValue, multiply);
+      previousValue = calculate(convertedPrev, convertedNext, multiply) + "";
       break;
     case "divide":
       // do stuff
-      previousValue = calculate(previousValue, nextValue, divide);
+      previousValue = calculate(convertedPrev, convertedNext, divide) + "";
       break;
     default:
       console.log("Whoopsies");
@@ -59,10 +63,17 @@ const performCalculation = () => {
   };
 }
 
-const numberInput = document.getElementsByClassName("num");
-const calcFunction = document.getElementsByClassName("func");
-const calcOperator = document.getElementsByClassName("operator");
+// const numberInput = document.getElementsByClassName("num");
+// const calcFunction = document.getElementsByClassName("func");
+// const calcOperator = document.getElementsByClassName("operator");
 
+previousValue = "2";
+nextValue = "19";
+
+
+console.log(previousValue, nextValue);
+evaluate("multiply");
+console.log(previousValue, typeof previousValue);
 // console.log(calcOperator);
 // calcOperator.addEventListener("button", (event)=> {
 //   event.preventDefault();
