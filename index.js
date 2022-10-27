@@ -6,12 +6,12 @@ Approach
 done:
 define the operator functions
 define a string to num function
+define a calc function
+create calculator logic function
 
 Todos:
-define a calc function
 create query selectors for event listeners
 attach event listeners
-create calculator logic function
 create an update function using query selectors
 */
 
@@ -59,3 +59,12 @@ const performCalculation = () => {
   };
 }
 
+const numberInput = document.getElementsByClassName("num");
+const calcFunction = document.getElementsByClassName("func");
+const calcOperator = document.getElementsByClassName("operator");
+
+// console.log(calcOperator);
+// calcOperator.addEventListener("button", (event)=> {
+//   event.preventDefault();
+//   console.log(event.innerText);
+// });
