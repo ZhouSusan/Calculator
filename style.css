@@ -1,16 +1,64 @@
 * {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
+}
+
+
+body {
+    background: linear-gradient(to right, rgb(145, 178, 206), rgb(115, 234, 169));
 }
 
 h1 {
     text-align: center;
-    margin-bottom: 5rem;
+    font-size: 300%;
+    font-weight: 200;
+    margin-bottom: 3rem;
 }
 
 .grid {
     display: grid;
     justify-content: center;
-    grid-template-columns: repeat(4, 100px);
-    grid-template-rows: minmax(120px, auto) repeat(5, 100px);
+    align-content: center;
+    grid-template-columns: repeat(4, 6.25rem);
+    grid-template-rows: minmax(7.5rem, auto) repeat(5, 6.25rem);
+}
+
+.grid > button {
+cursor: pointer;
+font-size: 2rem;
+border: 1px, solid #FFFFFF;
+outline: none;
+background-color: rbga(255, 255, 255, 0.75);
+}
+
+.grid > button:hover {
+    background-color: #4e9fc2;
+}
+
+.bg {
+    grid-column: span 2;
+    background-color: rgba(44, 139, 0, 0.8);
+}
+
+.result{
+    grid-column: 1 / -1;
+    background-color: rgba(0, 0, 0, 0.75);
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-around;
+    flex-direction: column;
+    padding: 0.625rem;
+    word-wrap: break-word;
+    word-break: break-all;
+}
+
+.result .previousValue{
+    color: rgba(255, 255, 255, 0.779);
+    font-size: 2rem;
+}
+
+.result .nextValue{
+    color: white;
+    font-size: 2rem;
 }
