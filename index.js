@@ -31,7 +31,8 @@ const setOperator = (operatorString) => {
   if (operatorString === "+") operatorToUse = "add";
   if (operatorString === "-") operatorToUse = "minus";
   if (operatorString === "X") operatorToUse = "multiply";
-  if (operatorString === "") operatorString = "";
+  if (operatorString === "") operatorToUse = "";
+  if (operatorString === "next") operatorToUse = "next";
 }
 
 // Checks if operatorToUse is an empty string and removes the last value of either previous/next variable and updates the DOM
@@ -80,7 +81,7 @@ const evaluate = (operation) => {
   //todo: add a variable to stage the converted prev and next vals;
   const convertedPrev = stringToNum(previousValue);
   const convertedNext = stringToNum(nextValue);
-
+  console.log(operation);
   switch (operation){
     case "add":
       // do stuff
@@ -99,11 +100,10 @@ const evaluate = (operation) => {
       previousValue = calculate(convertedPrev, convertedNext, divide) + "";
       break;
     default:
-      console.log("Whoopsies");
-      throw new Error("Using illegal operator");
+      console.log("Don't recognize it. ", operation);
   };
   // clean up state and update the DOM
-  setOperator("");
+  setOperator("next");
   previousScreen.innerText = previousValue;
   nextScreen.innerText = nextValue = "0";
 }
