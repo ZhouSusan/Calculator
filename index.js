@@ -2,6 +2,8 @@
 const numberInput = document.getElementsByClassName("num");
 const calcFunction = document.getElementsByClassName("func");
 const calcOperator = document.getElementsByClassName("operator");
+const previousScreen = document.getElementsByClassName("previousValue")[0];
+const nextScreen = document.getElementsByClassName("nextValue")[0];
 
 // Operators for calculator
 const additon = (previous, next) => previous + next;
@@ -17,10 +19,10 @@ let previousValue = "0"; // Should always be a number string
 let nextValue = "0"; //Should always be a number string
 let operatorToUse = ""; //Should always be a string
 
-// resets all of the variable states
+// resets all of the variable states and updates the DOM
 const allClear = () => {
-  previousValue = "0";
-  nextValue = "0";
+  previousScreen.innerText = previousValue = "0";
+  nextScreen.innerText = nextValue = "0";
   operatorToUse = "";
 };
 // updates the operatorToUse variable
@@ -29,33 +31,44 @@ const setOperator = (operatorString) => {
   if (operatorString === "+") operatorToUse = "add";
   if (operatorString === "-") operatorToUse = "minus";
   if (operatorString === "X") operatorToUse = "multiply";
+  if (operatorString === "") operatorString = "";
 }
 
-// Checks if operatorToUse is an empty string and removes the last value of either previous/next variable
+// Checks if operatorToUse is an empty string and removes the last value of either previous/next variable and updates the DOM
 const deleteOperation = () => {
   if (operatorToUse === "") {
-    previousValue = previousValue.substring(0, previousValue.length - 1);
-    if (previousValue === "") previousValue = "0";
+    previousScreen.innerText = previousValue = previousValue.substring(0, previousValue.length - 1);
+    if (previousValue === "") previousScreen.innerText = previousValue = "0";
   } else {
-    nextValue = nextValue.substring(0, nextValue.length - 1);
-    if (nextValue === "") nextValue = "0";
+    nextScreen.innerText = nextValue = nextValue.substring(0, nextValue.length - 1);
+    if (nextValue === "") nextScreen.innerText = nextValue = "0";
   }
 }
 
 // mutates the previousValue/nextValue by concating the number string
 const updatePreviousValue = (string) => {
-  previousValue = previousValue + string;
+  if (previousValue === "0") {
+    previousValue = string;
+  } else {
+    previousValue = previousValue + string;
+  }
 }
 const updateNextValue = (string) => {
-  nextValue = nextValue + string;
+  if (nextValue === "0") {
+    nextValue = string;
+  } else {
+    nextValue = nextValue + string;
+  }
 }
 
-// Chooses to update previous or next value depending if operatorToUse is an empty string
-performUpdate = (string) => {
+// Chooses to update previous or next value depending if operatorToUse is an empty string and updates the DOM
+const performUpdate = (string) => {
   if (operatorToUse === "") {
     updatePreviousValue(string);
+    previousScreen.innerText = previousValue;
   } else {
     updateNextValue(string);
+    nextScreen.innerText = nextValue;
   }
 };
 
@@ -89,7 +102,10 @@ const evaluate = (operation) => {
       console.log("Whoopsies");
       throw new Error("Using illegal operator");
   };
-  console.log("Your new total is: ", previousValue);
+  // clean up state and update the DOM
+  setOperator("");
+  previousScreen.innerText = previousValue;
+  nextScreen.innerText = nextValue = "0";
 }
 
 
