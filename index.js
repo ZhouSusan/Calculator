@@ -24,12 +24,28 @@ const divide = (previous, next) => previous / next;
 
 // input converter
 const stringToNum = (numberString) => Number(numberString);
-// const test = stringToNum("45.77")
-// console.log(typeof test, test);
 
 // Calculator state, aka memory
-let previousValue = 0;
-let nextValue = 0;
+let previousValue = "0";
+let nextValue = "0";
+let operatorToUse = "";
+
+// mutates the previousValue/nextValue by concating the number string
+const updatePreviousValue = (string) => {
+  previousValue = previousValue + string;
+}
+const updateNextValue = (string) => {
+  nextValue = nextValue + string;
+}
+
+// Chooses to update previous or next value depending if operatorToUse is an empty string
+performUpdate = (string) => {
+  if (operatorToUse === "") {
+    updatePreviousValue(string);
+  } else {
+    updateNextValue(string);
+  }
+};
 
 // Function that takes two values and applies the operator function
 const calculate = (previous, next, operator) => operator(previous, next);
@@ -63,19 +79,19 @@ const evaluate = (operation) => {
   };
 }
 
-// const numberInput = document.getElementsByClassName("num");
-// const calcFunction = document.getElementsByClassName("func");
-// const calcOperator = document.getElementsByClassName("operator");
+const numberInput = document.getElementsByClassName("num");
+const calcFunction = document.getElementsByClassName("func");
+const calcOperator = document.getElementsByClassName("operator");
 
+console.log(numberInput);
 previousValue = "2";
 nextValue = "19";
 
-
-console.log(previousValue, nextValue);
-evaluate("multiply");
-console.log(previousValue, typeof previousValue);
-// console.log(calcOperator);
-// calcOperator.addEventListener("button", (event)=> {
-//   event.preventDefault();
-//   console.log(event.innerText);
-// });
+for (let i = 0; i < numberInput.length; i++) {
+  const node = numberInput[i];
+  node.addEventListener("click", (event) => {
+    const stringNumber = event.target.innerText;
+    performUpdate(stringNumber);
+    // console.log(previousValue)
+  });
+}
